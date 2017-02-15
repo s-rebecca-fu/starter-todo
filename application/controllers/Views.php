@@ -17,12 +17,37 @@ class Views extends Application
     }
 	
 	function makePrioritizedPanel($tasks) {
-		
-		$parms = ['display_tasks' => []];
-		return $this->parser->parse('by_priority',$parms,true);
-	}
+        foreach ($tasks as $task)
+        {
+            if ($task->status != 2){
+                $undone[] = $task;
+            }
+        }
+        // order them by priority
+        usort($undone, "orderByPriority");
+        // substitute the priority name
+        foreach ($undone as $task){
+            $task->priority = $this->priorities->get($task->priority)->name;
+        }
+        // convert the array of task objects into an array of associative objects       
+        foreach ($undone as $task){
+            $converted[] = (array) $task;
+        }
+        // and then pass them on
+        $parms = ['display_tasks' => $converted];
+        return $this->parser->parse('by_priority', $parms, true);
+
+    }
+    
+    function makeCategorizedPanel($tasks)
+    {
+        $parms = ['display_tasks' => $this->tasks->getCategorizedTasks()];
+        return $this->parser->parse('by_category', $parms, true);
+    }
 	
-	// return -1, 0, or 1 of $a's priority is higher, equal to, or lower than $b's
+}
+
+// return -1, 0, or 1 of $a's priority is higher, equal to, or lower than $b's
 	function orderByPriority($a, $b)
 	{
 		if ($a->priority > $b->priority)
@@ -32,4 +57,3 @@ class Views extends Application
 		else
 			return 0;
 	}
-}
