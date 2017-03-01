@@ -23,6 +23,8 @@ class Mtce extends Application {
 
         // and then pass them on
         $this->data['pagebody'] = 'itemlist';
+		$role = $this->session->userdata('userrole');
+		$this->data['pagetitle'] = 'TODO List Maintenance ('. $role . ')';
         $this->render();
     }
 
