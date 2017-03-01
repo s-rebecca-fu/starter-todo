@@ -73,6 +73,8 @@ defined('FOPEN_READ_WRITE_CREATE_STRICT')       OR define('FOPEN_READ_WRITE_CREA
 |       http://tldp.org/LDP/abs/html/exitcodes.html
 |
 */
+defined('ROLE_GUEST') 		   OR define('ROLE_GUEST', 'Guest');
+defined('ROLE_OWNER') 		   OR define('ROLE_OWNER', 'Owner');
 defined('EXIT_SUCCESS')        OR define('EXIT_SUCCESS', 0); // no errors
 defined('EXIT_ERROR')          OR define('EXIT_ERROR', 1); // generic error
 defined('EXIT_CONFIG')         OR define('EXIT_CONFIG', 3); // configuration error
