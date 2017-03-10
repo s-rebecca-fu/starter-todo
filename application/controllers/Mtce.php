@@ -26,8 +26,10 @@ class Mtce extends Application {
 		$role = $this->session->userdata('userrole');
 
         // INSERT the next three lines. The fourth is already there
-        if ($role == ROLE_OWNER)
+        if ($role == ROLE_OWNER) {
             $result .= $this->parser->parse('oneitemx', (array) $task, true);
+			//echo "haha this is oneitemx";
+		}
         else
             $result .= $this->parser->parse('oneitem', (array) $task, true);
 
